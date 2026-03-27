@@ -26,6 +26,10 @@ def compare_excels(old_file, new_file):
     df_old = pd.read_excel(old_file, header=None)
     df_new = pd.read_excel(new_file, header=None)
 
+    # Boşlukları da temizle
+    df_old = df_old.replace(r'^\s*$', pd.NA, regex=True).dropna(how="all")
+    df_new = df_new.replace(r'^\s*$', pd.NA, regex=True).dropna(how="all")
+
     # İlk hücre = satır anahtarı
     old_map = {
         str(row[0]): row
